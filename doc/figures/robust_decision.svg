@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="600" viewBox="0 0 880 600" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto">
+      <path d="M0,0 L8.5,3 L0,6 z" fill="#455a64"/>
+    </marker>
+    <style>
+      .d { fill:#e3f2fd; stroke:#1565c0; stroke-width:1.5; }
+      .s { fill:#fff8e1; stroke:#ef6c00; stroke-width:1.5; }
+      .p { fill:#e8f5e9; stroke:#2e7d32; stroke-width:1.5; }
+      .x { fill:#ffebee; stroke:#c62828; stroke-width:1.5; }
+      .t { font-size:13px; fill:#263238; text-anchor:middle; dominant-baseline:middle; }
+      .e { stroke:#455a64; stroke-width:1.6; fill:none; marker-end:url(#a); }
+      .y { stroke:#2e7d32; stroke-width:1.6; fill:none; marker-end:url(#a); }
+      .n { stroke:#c62828; stroke-width:1.6; fill:none; marker-end:url(#a); }
+      .l { font-size:11px; fill:#546e7a; text-anchor:middle; }
+    </style>
+  </defs>
+  <text x="440" y="30" font-size="19" font-weight="700" fill="#263238" text-anchor="middle">图 6  单帧鲁棒决策流程</text>
+
+  <!-- start -->
+  <rect class="d" x="340" y="56" width="200" height="44" rx="22"/>
+  <text class="t" x="440" y="78">EKF 更新完成</text>
+
+  <!-- gate -->
+  <rect class="s" x="330" y="132" width="220" height="56" rx="8"/>
+  <text class="t" x="440" y="152">门控判定</text>
+  <text class="l" x="440" y="170">LOCKED 且位置跳变 &gt; 阈值？</text>
+
+  <rect class="x" x="620" y="132" width="200" height="56" rx="8"/>
+  <text class="t" x="720" y="152">拒绝更新</text>
+  <text class="l" x="720" y="170">回滚状态与协方差</text>
+
+  <rect class="p" x="60" y="132" width="200" height="56" rx="8"/>
+  <text class="t" x="160" y="152">接受更新</text>
+  <text class="l" x="160" y="170">提交 state_after</text>
+
+  <path class="n" d="M550,160 L620,160"/>
+  <text class="l" x="585" y="150">是</text>
+  <path class="y" d="M330,160 L260,160"/>
+  <text class="l" x="295" y="150">否</text>
+
+  <!-- quality eval -->
+  <rect class="d" x="290" y="240" width="300" height="56" rx="8"/>
+  <text class="t" x="440" y="260">匹配质量评估</text>
+  <text class="l" x="440" y="278">effct_feat_num / res_mean_last → acceptable / good</text>
+
+  <path class="e" d="M440,100 L440,132"/>
+  <path class="e" d="M160,188 L160,268 L290,268"/>
+  <path class="e" d="M720,188 L720,268 L590,268"/>
+
+  <!-- state machine -->
+  <rect class="p" x="290" y="336" width="300" height="56" rx="8"/>
+  <text class="t" x="440" y="356">状态机更新</text>
+  <text class="l" x="440" y="374">UNLOCKED / TRACKING / LOCKED / LOST</text>
+  <path class="e" d="M440,296 L440,336"/>
+
+  <!-- lost branch -->
+  <rect class="x" x="290" y="432" width="300" height="56" rx="8"/>
+  <text class="t" x="440" y="452">进入 LOST</text>
+  <text class="l" x="440" y="470">冻结于 last_locked_state</text>
+  <path class="n" d="M380,392 L380,432"/>
+
+  <!-- locked branch -->
+  <rect class="p" x="290" y="522" width="300" height="52" rx="8"/>
+  <text class="t" x="440" y="540">保存 last_locked_state / covariance</text>
+  <text class="l" x="440" y="558">仅当 LOCKED 且 current_match_good</text>
+  <path class="y" d="M500,392 L500,470 L500,522" />
+
+  <text class="l" x="180" y="470">bad_streak 达标</text>
+  <text class="l" x="640" y="470">good 且已锁定</text>
+</svg>

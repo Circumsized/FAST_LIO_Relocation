@@ -1,0 +1,15 @@
+Checks: >
+  bugprone-*,
+  modernize-*,
+  performance-*,
+  readability-*,
+  -modernize-use-trailing-return-type,
+  -readability-magic-numbers,
+  -bugprone-easily-swappable-parameters,
+  -readability-function-cognitive-complexity,
+  -readability-identifier-length,
+  -modernize-avoid-c-arrays
+
+WarningsAsErrors: ''
+HeaderFilterRegex: '^(?!.*[/\\](ikd-Tree|IKFoM_toolkit)[/\\]).*$'
+FormatStyle: file

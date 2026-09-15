@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="700" viewBox="0 0 760 700" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto">
+      <path d="M0,0 L8.5,3 L0,6 z" fill="#455a64"/>
+    </marker>
+    <style>
+      .b { fill:#ffffff; stroke:#455a64; stroke-width:1.5; }
+      .t { font-size:14px; fill:#263238; text-anchor:middle; dominant-baseline:middle; }
+      .s { font-size:10.5px; fill:#607d8b; text-anchor:middle; }
+      .e { stroke:#455a64; stroke-width:1.6; fill:none; marker-end:url(#a); }
+      .l { font-size:11px; fill:#78909c; text-anchor:middle; }
+    </style>
+  </defs>
+
+  <text x="380" y="28" font-size="19" font-weight="700" fill="#263238" text-anchor="middle">图 3  单帧数据处理流程</text>
+
+  <rect class="b" x="250" y="50" width="260" height="46" rx="8"/>
+  <text class="t" x="380" y="68">LiDAR + IMU 数据到达</text>
+  <text class="s" x="380" y="84">时间戳对齐</text>
+
+  <rect class="b" x="250" y="130" width="260" height="46" rx="8"/>
+  <text class="t" x="380" y="148">点云预处理</text>
+  <text class="s" x="380" y="164">解析 / 去畸变 / 下采样</text>
+
+  <rect class="b" x="250" y="210" width="260" height="46" rx="8"/>
+  <text class="t" x="380" y="228">IMU 状态传播</text>
+  <text class="s" x="380" y="244">名义状态与协方差预测</text>
+
+  <rect class="b" x="250" y="290" width="260" height="46" rx="8"/>
+  <text class="t" x="380" y="308">数据关联</text>
+  <text class="s" x="380" y="324">ikd-Tree 最近邻 + 平面拟合</text>
+
+  <rect class="b" x="250" y="370" width="260" height="46" rx="8"/>
+  <text class="t" x="380" y="388">迭代卡尔曼更新</text>
+  <text class="s" x="380" y="404">残差 / 雅可比 / 状态修正</text>
+
+  <rect class="b" x="250" y="450" width="260" height="46" rx="8"/>
+  <text class="t" x="380" y="468">匹配质量评估</text>
+  <text class="s" x="380" y="484">有效点数 / 平均残差</text>
+
+  <rect class="b" x="250" y="530" width="260" height="46" rx="8"/>
+  <text class="t" x="380" y="548">状态机判别与门控</text>
+  <text class="s" x="380" y="564">接受 / 拒绝 / 回退</text>
+
+  <rect class="b" x="250" y="610" width="260" height="46" rx="8"/>
+  <text class="t" x="380" y="628">输出位姿 / TF / 可视化</text>
+  <text class="s" x="380" y="644">可选 PCD 保存</text>
+
+  <path class="e" d="M380,96 L380,130"/>
+  <path class="e" d="M380,176 L380,210"/>
+  <path class="e" d="M380,256 L380,290"/>
+  <path class="e" d="M380,336 L380,370"/>
+  <path class="e" d="M380,416 L380,450"/>
+  <path class="e" d="M380,496 L380,530"/>
+  <path class="e" d="M380,576 L380,610"/>
+
+  <!-- feedback loop -->
+  <path class="e" d="M250,553 L150,553 L150,248 L250,248" stroke-dasharray="5 4"/>
+  <text class="l" x="150" y="400">状态反馈</text>
+</svg>

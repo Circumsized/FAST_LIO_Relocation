@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto">
+      <path d="M0,0 L8.5,3 L0,6 z" fill="#455a64"/>
+    </marker>
+    <style>
+      .b { fill:#ffffff; stroke:#455a64; stroke-width:1.5; }
+      .g { fill:#f5f7f9; stroke:#90a4ae; stroke-width:1.1; stroke-dasharray:6 4; }
+      .t { font-size:14px; fill:#263238; text-anchor:middle; dominant-baseline:middle; }
+      .s { font-size:11px; fill:#607d8b; text-anchor:middle; }
+      .h { font-size:12.5px; fill:#37474f; font-weight:600; }
+      .e { stroke:#455a64; stroke-width:1.5; fill:none; marker-end:url(#a); }
+    </style>
+  </defs>
+
+  <text x="450" y="32" font-size="19" font-weight="700" fill="#263238" text-anchor="middle">图 1  系统总体架构</text>
+
+  <!-- Input layer -->
+  <rect class="g" x="40" y="60" width="820" height="86"/>
+  <text class="h" x="60" y="80">输入层</text>
+  <rect class="b" x="90" y="92" width="220" height="42"/>
+  <text class="t" x="200" y="113">LiDAR 点云输入</text>
+  <rect class="b" x="590" y="92" width="220" height="42"/>
+  <text class="t" x="700" y="113">IMU 惯导输入</text>
+
+  <!-- Preprocess layer -->
+  <rect class="g" x="40" y="176" width="380" height="196"/>
+  <text class="h" x="60" y="196">预处理层</text>
+  <rect class="b" x="80" y="210" width="140" height="42"/>
+  <text class="t" x="150" y="231">点云解析</text>
+  <rect class="b" x="240" y="210" width="140" height="42"/>
+  <text class="t" x="310" y="231">盲区与运动滤波</text>
+  <rect class="b" x="80" y="266" width="140" height="42"/>
+  <text class="t" x="150" y="287">特征提取</text>
+  <rect class="b" x="240" y="266" width="140" height="42"/>
+  <text class="t" x="310" y="287">体素下采样</text>
+  <rect class="b" x="80" y="322" width="300" height="42"/>
+  <text class="t" x="230" y="343">点云一致性校验</text>
+
+  <!-- IMU layer -->
+  <rect class="g" x="480" y="176" width="380" height="196"/>
+  <text class="h" x="500" y="196">惯导处理层</text>
+  <rect class="b" x="520" y="210" width="300" height="42"/>
+  <text class="t" x="670" y="231">初始化与重力对齐</text>
+  <rect class="b" x="520" y="266" width="140" height="42"/>
+  <text class="t" x="590" y="287">状态传播</text>
+  <rect class="b" x="680" y="266" width="140" height="42"/>
+  <text class="t" x="750" y="287">点云去畸变</text>
+  <rect class="b" x="520" y="322" width="300" height="42"/>
+  <text class="t" x="670" y="343">协方差预测</text>
+
+  <!-- Estimation layer -->
+  <rect class="g" x="40" y="404" width="820" height="120"/>
+  <text class="h" x="60" y="424">估计核心层</text>
+  <rect class="b" x="80" y="440" width="160" height="46"/>
+  <text class="t" x="160" y="458">最近邻搜索</text>
+  <text class="s" x="160" y="474">ikd-Tree</text>
+  <rect class="b" x="270" y="440" width="160" height="46"/>
+  <text class="t" x="350" y="458">局部平面拟合</text>
+  <text class="s" x="350" y="474">法向量估计</text>
+  <rect class="b" x="460" y="440" width="160" height="46"/>
+  <text class="t" x="540" y="458">点到平面残差</text>
+  <text class="s" x="540" y="474">雅可比构建</text>
+  <rect class="b" x="650" y="440" width="180" height="46"/>
+  <text class="t" x="740" y="458">迭代 EKF 更新</text>
+  <text class="s" x="740" y="474">IESKF</text>
+
+  <!-- Robustness layer -->
+  <rect class="g" x="40" y="556" width="820" height="66"/>
+  <text class="h" x="60" y="576">定位鲁棒层</text>
+  <rect class="b" x="130" y="566" width="180" height="42"/>
+  <text class="t" x="220" y="587">匹配质量评估</text>
+  <rect class="b" x="360" y="566" width="180" height="42"/>
+  <text class="t" x="450" y="587">状态机判别</text>
+  <rect class="b" x="590" y="566" width="180" height="42"/>
+  <text class="t" x="680" y="587">位姿门控与回退</text>
+
+  <!-- edges -->
+  <path class="e" d="M200,134 L170,210"/>
+  <path class="e" d="M700,134 L700,210"/>
+  <path class="e" d="M310,252 L310,266"/>
+  <path class="e" d="M590,252 L590,266" stroke-dasharray="4 3"/>
+  <path class="e" d="M230,364 L200,440"/>
+  <path class="e" d="M670,364 L560,440"/>
+  <path class="e" d="M350,486 L350,566"/>
+  <path class="e" d="M540,486 L500,566"/>
+</svg>

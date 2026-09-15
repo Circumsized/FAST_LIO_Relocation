@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="520" viewBox="0 0 880 520" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <style>
+      .b { fill:#ffffff; stroke:#455a64; stroke-width:1.5; rx:8; }
+      .pos { fill:#e8f5e9; stroke:#2e7d32; }
+      .rot { fill:#e3f2fd; stroke:#1565c0; }
+      .ext { fill:#fff8e1; stroke:#ef6c00; }
+      .bio { fill:#f3e5f5; stroke:#6a1b9a; }
+      .t { font-size:13px; fill:#263238; text-anchor:middle; dominant-baseline:middle; }
+      .s { font-size:10.5px; fill:#546e7a; text-anchor:middle; }
+      .h { font-size:13px; fill:#37474f; font-weight:600; }
+      .l { font-size:11.5px; fill:#546e7a; }
+    </style>
+  </defs>
+  <text x="440" y="30" font-size="19" font-weight="700" fill="#263238" text-anchor="middle">图 7  误差状态量与流形定义</text>
+
+  <!-- box -->
+  <rect class="b" x="60" y="60" width="360" height="60"/>
+  <text class="h" x="80" y="84">状态向量 x（state_ikfom）</text>
+  <text class="s" x="240" y="104">8 个流形块，误差状态共 23 维</text>
+
+  <rect class="b pos" x="60" y="150" width="170" height="52"/>
+  <text class="t" x="145" y="168">pos</text>
+  <text class="s" x="145" y="188">R³ · 位置</text>
+
+  <rect class="b rot" x="250" y="150" width="170" height="52"/>
+  <text class="t" x="335" y="168">rot</text>
+  <text class="s" x="335" y="188">SO(3) · 姿态</text>
+
+  <rect class="b pos" x="60" y="220" width="170" height="52"/>
+  <text class="t" x="145" y="238">vel</text>
+  <text class="s" x="145" y="258">R³ · 速度</text>
+
+  <rect class="b bio" x="250" y="220" width="170" height="52"/>
+  <text class="t" x="335" y="238">bg / ba</text>
+  <text class="s" x="335" y="258">R³ · 陀螺/加计零偏</text>
+
+  <rect class="b ext" x="60" y="290" width="170" height="52"/>
+  <text class="t" x="145" y="308">offset_R_L_I</text>
+  <text class="s" x="145" y="328">SO(3) · 外参旋转</text>
+
+  <rect class="b ext" x="250" y="290" width="170" height="52"/>
+  <text class="t" x="335" y="308">offset_T_L_I</text>
+  <text class="s" x="335" y="328">R³ · 外参平移</text>
+
+  <rect class="b bio" x="60" y="360" width="360" height="52"/>
+  <text class="t" x="240" y="378">grav</text>
+  <text class="s" x="240" y="398">S2 · 重力方向（2 维流形）</text>
+
+  <!-- right notes -->
+  <rect class="b" x="480" y="60" width="340" height="352" fill="#fafafa" stroke="#90a4ae" stroke-dasharray="6 4"/>
+  <text class="h" x="500" y="86">说明</text>
+  <text class="l" x="500" y="116">· 误差状态固定 23 维：</text>
+  <text class="l" x="524" y="140">15（位置/姿态/速度/零偏）</text>
+  <text class="l" x="524" y="164">+ 6（外参旋转与平移）+ 2（重力 S2）</text>
+  <text class="l" x="500" y="196">· 过程噪声 12 维：ng, na, nbg, nba</text>
+  <text class="l" x="500" y="220">· 过程噪声对角（process_noise_cov）：</text>
+  <text class="l" x="524" y="244">ng = na = 1e-4</text>
+  <text class="l" x="524" y="268">nbg = nba = 1e-5</text>
+  <text class="l" x="500" y="300">· 外参开关 extrinsic_est_en：</text>
+  <text class="l" x="524" y="324">false → 外参不参与估计</text>
+  <text class="l" x="524" y="348">true  → 外参块加入雅可比</text>
+  <text class="l" x="500" y="380">· 初始 P 由 INIT_COV 初始化</text>
+
+  <!-- manifold legend -->
+  <rect class="b" x="60" y="432" width="760" height="66" fill="#f5f7f9"/>
+  <text class="l" x="80" y="458">流形记号：R³ = 欧氏向量；SO(3) = 旋转群；S2 = 二维单位球（重力方向）。</text>
+  <text class="l" x="80" y="482">所有状态在对应流形上做误差状态更新，保证旋转与重力方向的正交性约束。</text>
+</svg>

@@ -1,0 +1,15 @@
+build
+Log/*.png
+Log/*.txt
+Log/*.csv
+Log/*.pdf
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+PCD/*.pcd
+
+# Python 缓存（launch / 工具脚本运行时生成）
+__pycache__/
+*.py[cod]
+
+# 本地开发过程工件（spec/plan 等，不进入公开仓库）
+.trae/

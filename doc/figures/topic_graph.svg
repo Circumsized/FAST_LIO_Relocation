@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="540" viewBox="0 0 880 540" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto">
+      <path d="M0,0 L8.5,3 L0,6 z" fill="#455a64"/>
+    </marker>
+    <style>
+      .in { fill:#fff8e1; stroke:#ef6c00; stroke-width:1.5; }
+      .core { fill:#e3f2fd; stroke:#1565c0; stroke-width:1.5; }
+      .out { fill:#e8f5e9; stroke:#2e7d32; stroke-width:1.5; }
+      .lat { fill:#f3e5f5; stroke:#6a1b9a; stroke-width:1.5; }
+      .t { font-size:12.5px; fill:#263238; text-anchor:middle; dominant-baseline:middle; }
+      .s { font-size:10px; fill:#546e7a; text-anchor:middle; }
+      .e { stroke:#455a64; stroke-width:1.5; fill:none; marker-end:url(#a); }
+      .h { font-size:12.5px; fill:#37474f; font-weight:600; }
+    </style>
+  </defs>
+  <text x="440" y="30" font-size="19" font-weight="700" fill="#263238" text-anchor="middle">图 8  数据流与话题接口</text>
+
+  <rect class="core" x="320" y="230" width="240" height="70" rx="10"/>
+  <text class="t" x="440" y="258">fastlio_mapping 节点</text>
+  <text class="s" x="440" y="280">IESKF + ikd-Tree + 状态机</text>
+
+  <!-- inputs -->
+  <rect class="in" x="40" y="120" width="200" height="48" rx="8"/>
+  <text class="t" x="140" y="138">/livox/lidar</text>
+  <text class="s" x="140" y="156">CustomMsg / PointCloud2</text>
+
+  <rect class="in" x="40" y="200" width="200" height="48" rx="8"/>
+  <text class="t" x="140" y="218">/livox/imu</text>
+  <text class="s" x="140" y="236">sensor_msgs/Imu</text>
+
+  <!-- outputs -->
+  <rect class="out" x="640" y="80" width="200" height="42" rx="8"/>
+  <text class="t" x="740" y="101">/Odometry</text>
+
+  <rect class="out" x="640" y="140" width="200" height="42" rx="8"/>
+  <text class="t" x="740" y="161">/path</text>
+
+  <rect class="out" x="640" y="200" width="200" height="42" rx="8"/>
+  <text class="t" x="740" y="221">/cloud_registered</text>
+
+  <rect class="out" x="640" y="260" width="200" height="42" rx="8"/>
+  <text class="t" x="740" y="281">/cloud_registered_body</text>
+
+  <rect class="out" x="640" y="320" width="200" height="42" rx="8"/>
+  <text class="t" x="740" y="341">/localization_status_marker</text>
+
+  <rect class="lat" x="640" y="392" width="200" height="48" rx="8"/>
+  <text class="t" x="740" y="410">/Laser_map</text>
+  <text class="s" x="740" y="428">transient_local（latched）</text>
+
+  <!-- tf -->
+  <rect class="out" x="320" y="400" width="240" height="46" rx="8"/>
+  <text class="t" x="440" y="418">TF 广播</text>
+  <text class="s" x="440" y="436">world_frame → body</text>
+
+  <!-- edges in -->
+  <path class="e" d="M240,144 L320,250"/>
+  <path class="e" d="M240,224 L320,256"/>
+  <!-- edges out -->
+  <path class="e" d="M560,250 L640,101"/>
+  <path class="e" d="M560,256 L640,161"/>
+  <path class="e" d="M560,264 L640,221"/>
+  <path class="e" d="M560,270 L640,281"/>
+  <path class="e" d="M560,278 L640,341"/>
+  <path class="e" d="M560,286 L640,410"/>
+  <path class="e" d="M440,300 L440,400"/>
+
+  <text class="h" x="140" y="100">输入</text>
+  <text class="h" x="740" y="62">输出</text>
+</svg>

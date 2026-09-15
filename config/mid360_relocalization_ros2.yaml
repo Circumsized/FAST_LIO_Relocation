@@ -1,0 +1,110 @@
+# FAST_LIO_Relocation ROS2 (Humble) — MID360 重定位配置
+# 注意：ROS2 参数通过节点名空间加载，launch 中用 parameters=[yaml] 传入
+/**:
+  ros__parameters:
+    # ===== 运行模式：0=建图(MODE_MAPPING) 1=重定位(MODE_LOCALIZATION) =====
+    run_mode: 1
+    # 先验地图绝对路径：必须由用户按自己环境提供。
+    # 推荐在 launch 中覆盖：ros2 launch fast_lio relocalization_mid360.launch.py map_file_path:=/abs/path/map.pcd
+    map_file_path: ""
+    map_voxel_size: 0.3
+
+    common:
+      lid_topic: "/livox/lidar"
+      imu_topic: "/livox/imu"
+      time_sync_en: false
+      time_offset_lidar_to_imu: 0.0
+
+    preprocess:
+      lidar_type: 1        # 1=Livox(AVIA/CustomMsg) 2=Velodyne 3=Ouster 4=MARSIM
+      scan_line: 4
+      blind: 0.5
+      timestamp_unit: 3
+      scan_rate: 10
+
+    mapping:
+      gravity_align_en: true
+      acc_cov: 0.1
+      gyr_cov: 0.1
+      b_acc_cov: 0.0001
+      b_gyr_cov: 0.0001
+      fov_degree: 360
+      det_range: 100.0
+      extrinsic_est_en: false
+      extrinsic_T: [-0.011, -0.02329, 0.04412]
+      extrinsic_R: [1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1]
+
+    # ===== 定位状态机 / 匹配质量 / 门控 =====
+    localization:
+      # acceptable 级别（进入/维持 TRACKING 的底线）
+      min_effective_points_for_tracking: 15
+      max_residual_for_tracking: 0.1
+      # good 级别（进入 LOCKED 的条件）
+      min_effective_points_for_good: 180
+      max_residual_for_good: 0.08
+      # 状态转移阈值
+      unlock_to_tracking_streak: 3      # 原版硬编码 3，现参数化
+      good_match_streak_to_lock: 20
+      bad_match_streak_to_lost: 5
+      min_time_before_lock_sec: 1.0
+      # 位姿门控（LOCKED 下大跳变拒绝）
+      max_position_jump_for_update_locked: 0.5
+      # —— 以下为 ROS2 版新增（默认关闭，保持与原版行为一致）——
+      adaptive_gating_en: false         # 自适应门控：按残差比率放大跳变阈值
+      adaptive_scale_max: 3.0
+      lost_recovery_en: false           # LOST 自动恢复（连续 acceptable 后回到 TRACKING）
+      lost_recovery_streak: 10
+      lost_recovery_max_attempts: 3
+      lost_recovery_cooldown_sec: 5.0
+      prior_map_pub_interval: 50
+
+    # ===== 建图相关（重定位模式不生效，保留以便切换） =====
+    feature_extract_enable: false
+    point_filter_num: 3
+    max_iteration: 3
+    filter_size_corner: 0.3
+    filter_size_surf: 0.3
+    filter_size_map: 0.3
+    cube_side_length: 1000.0
+    runtime_pos_log_enable: false
+    world_frame: "map"
+
+    publish:
+      path_en: false
+      path_min_distance: 0.05
+      path_max_length: 10000
+      scan_publish_en: true
+      dense_publish_en: true
+      scan_bodyframe_pub_en: true
+
+    pcd_save:
+      pcd_save_en: false
+      interval: -1
+
+    # ===== NDT 重定位后端（LOST 恢复 + 启动位姿初值）=====
+    # 默认关闭：开启后需配合 localization.lost_recovery_en 才生效（共用恢复预算）。
+    relocalization:
+      enable: false
+      method: ndt
+      trigger_interval_frames: 5
+      # 源子图帧数：应足够大使拼接点数 >= min_source_points，否则 NDT 因源点不足而失败
+      local_submap_frames: 5
+      local_map_radius: 30.0
+      cov_inflation: 10.0
+      source_voxel_size: 0.5
+      target_voxel_size: 0.5
+      ndt_resolution: 1.0
+      ndt_step_size: 0.1
+      ndt_trans_eps: 0.01
+      ndt_max_iter: 30
+      ndt_num_threads: 0          # 0 = auto（PCL OpenMP）
+      max_translation_delta: 8.0  # 米，相对初值
+      max_rotation_delta_deg: 20.0
+      max_fitness_score: 1.0
+      min_source_points: 200
+      min_target_points: 1000
+      # 启动位姿初值：仅当提供 [x,y,z,roll,pitch,yaw]（米/度）时启用；
+      # 作为启动阶段的 assume-given 粗对齐（启动不跑 NDT）；留空则不启用。
+      initial_pose: []

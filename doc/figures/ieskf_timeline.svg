@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto">
+      <path d="M0,0 L8.5,3 L0,6 z" fill="#455a64"/>
+    </marker>
+    <style>
+      .b { fill:#ffffff; stroke:#455a64; stroke-width:1.5; rx:8; }
+      .g { fill:#f5f7f9; stroke:#90a4ae; stroke-width:1.1; stroke-dasharray:6 4; }
+      .t { font-size:13.5px; fill:#263238; text-anchor:middle; dominant-baseline:middle; }
+      .s { font-size:10.5px; fill:#607d8b; text-anchor:middle; }
+      .h { font-size:12.5px; fill:#37474f; font-weight:600; }
+      .e { stroke:#455a64; stroke-width:1.6; fill:none; marker-end:url(#a); }
+      .r { stroke:#c62828; stroke-width:1.5; fill:none; marker-end:url(#a); stroke-dasharray:6 4; }
+      .l { font-size:11px; fill:#546e7a; text-anchor:middle; }
+    </style>
+  </defs>
+  <text x="450" y="30" font-size="19" font-weight="700" fill="#263238" text-anchor="middle">图 4  IESKF 预测–更新时序</text>
+
+  <!-- IMU prediction lane -->
+  <rect class="g" x="40" y="60" width="820" height="150"/>
+  <text class="h" x="60" y="80">IMU 预测（高频）</text>
+  <rect class="b" x="80" y="100" width="160" height="44"/>
+  <text class="t" x="160" y="117">名义状态传播</text>
+  <text class="s" x="160" y="133">get_f, df_dx</text>
+  <rect class="b" x="280" y="100" width="160" height="44"/>
+  <text class="t" x="360" y="117">协方差推进</text>
+  <text class="s" x="360" y="133">P = FPFᵀ + Q</text>
+  <rect class="b" x="480" y="100" width="160" height="44"/>
+  <text class="t" x="560" y="117">点云缓存</text>
+  <text class="s" x="560" y="133">按 curvature 排序</text>
+  <rect class="b" x="680" y="100" width="160" height="44"/>
+  <text class="t" x="760" y="117">去畸变</text>
+  <text class="s" x="760" y="133">UndistortPcl</text>
+  <path class="e" d="M240,122 L280,122"/>
+  <path class="e" d="M440,122 L480,122"/>
+  <path class="e" d="M640,122 L680,122"/>
+  <text class="l" x="160" y="176">在 LiDAR 帧间隔内逐 IMU 积分</text>
+
+  <!-- LiDAR update lane -->
+  <rect class="g" x="40" y="228" width="820" height="150"/>
+  <text class="h" x="60" y="248">LiDAR 更新（单帧，迭代）</text>
+  <rect class="b" x="80" y="268" width="150" height="44"/>
+  <text class="t" x="155" y="285">最近邻搜索</text>
+  <text class="s" x="155" y="301">Nearest_Search</text>
+  <rect class="b" x="260" y="268" width="150" height="44"/>
+  <text class="t" x="335" y="285">平面拟合</text>
+  <text class="s" x="335" y="301">esti_plane</text>
+  <rect class="b" x="440" y="268" width="150" height="44"/>
+  <text class="t" x="515" y="285">残差筛选</text>
+  <text class="s" x="515" y="301">s_score &gt; 0.9</text>
+  <rect class="b" x="620" y="268" width="220" height="44"/>
+  <text class="t" x="730" y="285">迭代状态修正</text>
+  <text class="s" x="730" y="301">update_iterated_dyn_share_modified</text>
+  <path class="e" d="M230,290 L260,290"/>
+  <path class="e" d="M410,290 L440,290"/>
+  <path class="e" d="M590,290 L620,290"/>
+  <path class="e" d="M730,312 C730,340 620,340 600,352" />
+  <text class="l" x="200" y="344">迭代至收敛或达 max_iteration</text>
+
+  <!-- decision -->
+  <rect class="b" x="360" y="410" width="200" height="46" stroke="#c62828"/>
+  <text class="t" x="460" y="433">位姿门控（LOCKED）</text>
+  <path class="e" d="M760,312 L760,400 L560,400 L560,410"/>
+  <path class="r" d="M390,456 L320,456" />
+  <text class="l" x="255" y="460">拒绝：回滚</text>
+  <path class="e" d="M530,456 L600,456"/>
+  <text class="l" x="655" y="460">接受：提交状态</text>
+  <path class="e" d="M460,486 L460,516"/>
+  <rect class="b" x="330" y="516" width="260" height="38"/>
+  <text class="t" x="460" y="535">匹配质量评估 → 状态机更新</text>
+</svg>

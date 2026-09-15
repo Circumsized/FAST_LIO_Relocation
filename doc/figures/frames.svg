@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="520" viewBox="0 0 880 520" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8.5" refY="3" orient="auto">
+      <path d="M0,0 L8.5,3 L0,6 z" fill="#37474f"/>
+    </marker>
+    <style>
+      .axis { stroke:#37474f; stroke-width:2.2; marker-end:url(#a); }
+      .axl { font-size:13px; fill:#263238; font-weight:600; }
+      .lbl { font-size:12px; fill:#37474f; }
+      .n { font-size:12px; fill:#546e7a; }
+      .dot { fill:#c62828; }
+    </style>
+  </defs>
+  <text x="440" y="30" font-size="19" font-weight="700" fill="#263238" text-anchor="middle">图 5  坐标系与外参定义</text>
+
+  <!-- world frame W -->
+  <g transform="translate(160,330)">
+    <line class="axis" x1="0" y1="0" x2="130" y2="0"/>
+    <line class="axis" x1="0" y1="0" x2="0" y2="-120"/>
+    <line class="axis" x1="0" y1="0" x2="-70" y2="60"/>
+    <text class="axl" x="135" y="4">X_W</text>
+    <text class="axl" x="4" y="-126">Z_W</text>
+    <text class="axl" x="-92" y="66">Y_W</text>
+    <circle class="dot" cx="0" cy="0" r="4"/>
+    <text class="lbl" x="12" y="18">世界系 W（map / camera_init）</text>
+  </g>
+
+  <!-- IMU frame I -->
+  <g transform="translate(500,300)">
+    <line class="axis" x1="0" y1="0" x2="110" y2="-30"/>
+    <line class="axis" x1="0" y1="0" x2="30" y2="-110"/>
+    <line class="axis" x1="0" y1="0" x2="-80" y2="40"/>
+    <text class="axl" x="112" y="-34">X_I</text>
+    <text class="axl" x="36" y="-116">Z_I</text>
+    <text class="axl" x="-104" y="44">Y_I</text>
+    <circle class="dot" cx="0" cy="0" r="4"/>
+    <text class="lbl" x="14" y="20">IMU 系 I</text>
+  </g>
+
+  <!-- LiDAR frame L -->
+  <g transform="translate(680,150)">
+    <line class="axis" x1="0" y1="0" x2="100" y2="10"/>
+    <line class="axis" x1="0" y1="0" x2="20" y2="-100"/>
+    <line class="axis" x1="0" y1="0" x2="-80" y2="-30"/>
+    <text class="axl" x="102" y="14">X_L</text>
+    <text class="axl" x="26" y="-106">Z_L</text>
+    <text class="axl" x="-104" y="-34">Y_L</text>
+    <circle class="dot" cx="0" cy="0" r="4"/>
+    <text class="lbl" x="14" y="20">LiDAR 系 L</text>
+  </g>
+
+  <!-- T_WI -->
+  <path class="axis" d="M160,330 L500,300" stroke-dasharray="0"/>
+  <text class="n" x="300" y="298">T_WI ：state.rot / state.pos</text>
+
+  <!-- T_LI -->
+  <path class="axis" d="M500,300 L680,150" stroke-dasharray="0"/>
+  <text class="n" x="636" y="238">T_LI ：offset_R_L_I / offset_T_L_I</text>
+
+  <!-- point transform note -->
+  <rect x="60" y="430" width="760" height="66" fill="#f5f7f9" stroke="#90a4ae" stroke-width="1.1" rx="8"/>
+  <text class="lbl" x="80" y="456">点到世界系的变换：</text>
+  <text class="n" x="80" y="478">p_W = R_WI · ( R_LI · p_L + t_LI ) + p_WI ，其中 p_L 为雷达系下点坐标</text>
+</svg>

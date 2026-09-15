@@ -732,8 +732,7 @@ ROS 2 时间戳必须满足 `nanosec ∈ [0, 1e9)`。`sec_to_stamp` 用 `floor +
 fast_lio/
 ├── config/                  # ROS 2 参数配置（mid360 / 仿真 / 多雷达）
 ├── doc/
-│   ├── figures/             # 本文档示意图（SVG）
-│   └── optimization_plan_ros2.md
+│   └── figures/             # 本文档示意图（SVG）
 ├── include/
 │   ├── ikd-Tree/            # 增量 kd-tree
 │   ├── IKFoM_toolkit/       # 流形 Kalman 工具

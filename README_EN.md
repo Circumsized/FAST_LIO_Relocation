@@ -806,8 +806,7 @@ Simulation/dataset configs + unit tests make validation hardware-independent.
 fast_lio/
 ├── config/                  # ROS 2 parameters (mid360 / simulation / multi-LiDAR)
 ├── doc/
-│   ├── figures/             # SVG figures used in this document
-│   └── optimization_plan_ros2.md
+│   └── figures/             # SVG figures used in this document
 ├── include/
 │   ├── ikd-Tree/            # incremental kd-tree
 │   ├── IKFoM_toolkit/       # manifold Kalman utilities
